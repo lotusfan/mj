@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjapp.dao.UserLifeLineTbMapper">
+
+    <resultMap id="userLifeLineTbResultMap" type="com.mjapp.model.UserLifeLineTb">
+        <id column="id" property="id"/>
+        <result column="relation_id" property="relationId"/>
+        <result column="type1" property="type1"/>
+        <result column="user_id" property="userId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="type2" property="type2"/>
+        <result column="type3" property="type3"/>
+        <result column="delete_flag" property="deleteFlag"/>
+    </resultMap>
+    <insert id="save" parameterType="com.mjapp.model.UserLifeLineTb" useGeneratedKeys="true" keyProperty="id">
+        insert into `user_life_line_tb`(
+        <trim suffixOverrides=",">
+            <if test="relationId != null">`relation_id`,</if>
+            <if test="type1 != null">`type1`,</if>
+            <if test="userId != null">`user_id`,</if>
+            <if test="createTime != null">`create_time`,</if>
+            <if test="type2 != null">`type2`,</if>
+            <if test="type3 != null">`type3`,</if>
+            <if test="deleteFlag != null">`delete_flag`,</if>
+        </trim>
+        )values(
+        <trim suffixOverrides=",">
+            <if test="relationId != null">#{relationId},</if>
+            <if test="type1 != null">#{type1},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="type2 != null">#{type2},</if>
+            <if test="type3 != null">#{type3},</if>
+            <if test="deleteFlag != null">#{deleteFlag},</if>
+        </trim>
+        )
+    </insert>
+    <update id="update" parameterType="com.mjapp.model.UserLifeLineTb">
+        update `user_life_line_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="relationId != null">`relation_id` = #{relationId},</if>
+            <if test="type1 != null">`type1` = #{type1},</if>
+            <if test="userId != null">`user_id` = #{userId},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="type2 != null">`type2` = #{type2},</if>
+            <if test="type3 != null">`type3` = #{type3},</if>
+            <if test="deleteFlag != null">`delete_flag` = #{deleteFlag},</if>
+        </trim>
+        where `id` = #{id}
+    </update>
+
+    <update id="updateSign" parameterType="com.mjapp.model.UserLifeLineTb">
+        update `user_life_line_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="deleteFlag != null">`delete_flag` = #{deleteFlag},</if>
+        </trim>
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="relationId != null">AND `relation_id` = #{relationId}</if>
+            <if test="type1 != null">AND `type1` = #{type1}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="type2 != null">AND `type2` = #{type2}</if>
+            <if test="type3 != null">AND `type3` = #{type3}</if>
+        </trim>
+    </update>
+
+    <select id="getBy" parameterType="com.mjapp.model.UserLifeLineTb" resultMap="userLifeLineTbResultMap">
+        select * from `user_life_line_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="relationId != null">AND `relation_id` = #{relationId}</if>
+            <if test="type1 != null">AND `type1` = #{type1}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="type2 != null">AND `type2` = #{type2}</if>
+            <if test="type3 != null">AND `type3` = #{type3}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+        </trim>
+    </select>
+    <select id="getConditionBy" parameterType="com.mjapp.model.UserLifeLineTb" resultMap="userLifeLineTbResultMap">
+        select * from `user_life_line_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="relationId != null">AND `relation_id` = #{relationId}</if>
+            <if test="type1 != null">AND `type1` = #{type1}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="type2 != null">AND `type2` = #{type2}</if>
+            <if test="type3 != null">AND `type3` = #{type3}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="maxParameter != null">AND ${maxParameter} &lt;= #{maxValue}</if>
+            <if test="minParameter != null">AND ${minParameter} &gt; #{minValue}</if>
+        </trim>
+        <trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+            <if test="sequence1 != null">${sequence1} ${sequence1Type},</if>
+            <if test="sequence2 != null">${sequence2} ${sequence2Type}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+    <select id="getUniqueBy" parameterType="com.mjapp.model.UserLifeLineTb" resultMap="userLifeLineTbResultMap">
+        select * from `user_life_line_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="relationId != null">AND `relation_id` = #{relationId}</if>
+            <if test="type1 != null">AND `type1` = #{type1}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="type2 != null">AND `type2` = #{type2}</if>
+            <if test="type3 != null">AND `type3` = #{type3}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+        </trim>
+    </select>
+    <select id="count" parameterType="com.mjapp.model.UserLifeLineTb" resultType="java.lang.Integer">
+        select count(*) from `user_life_line_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="relationId != null">AND `relation_id` = #{relationId}</if>
+            <if test="type1 != null">AND `type1` = #{type1}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="type2 != null">AND `type2` = #{type2}</if>
+            <if test="type3 != null">AND `type3` = #{type3}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+        </trim>
+    </select>
+
+    <select id="getUserActivityLifeLineBy" parameterType="com.mjapp.model.UserLifeLineTb" resultMap="com.mjapp.dao.ActivityTbMapper.activityTbResultMap">
+        select a.*, u.* from `user_life_line_tb` ul INNER JOIN `activity_tb` a INNER JOIN `user_tb` u ON ul.relation_id = a.id and a.create_user_id = u.id
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND ul.id = #{id}</if>
+            <if test="relationId != null">AND ul.relation_id = #{relationId}</if>
+            <if test="type1 != null">AND ul.type1 = #{type1}</if>
+            <if test="userId != null">AND ul.user_id = #{userId}</if>
+            <if test="createTime != null">AND ul.create_time = #{createTime}</if>
+            <if test="type2 != null">AND ul.type2 = #{type2}</if>
+            <if test="type3 != null">AND ul.type3 = #{type3}</if>
+            <if test="deleteFlag != null">AND ul.delete_flag = #{deleteFlag}</if>
+        </trim>
+        ORDER BY ul.create_time DESC
+    </select>
+
+
+
+
+</mapper>

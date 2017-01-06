@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjapp.dao.OrderSubTbMapper">
+
+<resultMap id="orderSubTbResultMap" type="com.mjapp.model.OrderSubTb">
+	<id column="id" property="id"/>
+	<result column="pay_type_code" property="payTypeCode" />
+	<result column="pay_type_name" property="payTypeName" />
+	<result column="order_id" property="orderId" />
+	<result column="order_sn" property="orderSn" />
+	<result column="activity_name" property="activityName" />
+	<result column="activity_id" property="activityId" />
+	<result column="store_json" property="storeJson" />
+	<result column="goods_json" property="goodsJson" />
+	<result column="bill_flag" property="billFlag" />
+	<result column="create_time" property="createTime" />
+	<result column="update_time" property="updateTime" />
+	<result column="tradeno" property="tradeno" /> 
+</resultMap> 
+<insert id="save" parameterType="com.mjapp.model.OrderSubTb" useGeneratedKeys="true" keyProperty="id">
+	insert into `order_sub_tb`(
+	<trim suffixOverrides=",">
+		<if test="payTypeCode != null">`pay_type_code`,</if>
+		<if test="payTypeName != null">`pay_type_name`,</if>
+		<if test="orderId != null">`order_id`,</if>
+		<if test="orderSn != null">`order_sn`,</if>
+		<if test="activityName != null">`activity_name`,</if>
+		<if test="activityId != null">`activity_id`,</if>
+		<if test="storeJson != null">`store_json`,</if>
+		<if test="goodsJson != null">`goods_json`,</if>
+		<if test="billFlag != null">`bill_flag`,</if>
+		<if test="createTime != null">`create_time`,</if>
+		<if test="updateTime != null">`update_time`,</if>
+		<if test="tradeno != null">`tradeno`,</if>
+	</trim>
+	)values(
+	<trim suffixOverrides=",">
+		<if test="payTypeCode != null"> #{payTypeCode},</if>
+		<if test="payTypeName != null"> #{payTypeName},</if>
+		<if test="orderId != null"> #{orderId},</if>
+		<if test="orderSn != null"> #{orderSn},</if>
+		<if test="activityName != null"> #{activityName},</if>
+		<if test="activityId != null"> #{activityId},</if>
+		<if test="storeJson != null"> #{storeJson},</if>
+		<if test="goodsJson != null"> #{goodsJson},</if>
+		<if test="billFlag != null"> #{billFlag},</if>
+		<if test="createTime != null"> #{createTime},</if>
+		<if test="updateTime != null"> #{updateTime},</if>
+		<if test="tradeno != null"> #{tradeno},</if>
+	</trim>
+	)
+</insert>
+<update id="update" parameterType="com.mjapp.model.OrderSubTb">
+	update `order_sub_tb`
+	<trim prefix="set" suffixOverrides=",">
+		<if test="payTypeCode != null">`pay_type_code` = #{payTypeCode},</if>
+		<if test="payTypeName != null">`pay_type_name` = #{payTypeName},</if>
+		<if test="orderId != null">`order_id` = #{orderId},</if>
+		<if test="orderSn != null">`order_sn` = #{orderSn},</if>
+		<if test="activityName != null">`activity_name` = #{activityName},</if>
+		<if test="activityId != null">`activity_id` = #{activityId},</if>
+		<if test="storeJson != null">`store_json` = #{storeJson},</if>
+		<if test="goodsJson != null">`goods_json` = #{goodsJson},</if>
+		<if test="billFlag != null">`bill_flag` = #{billFlag},</if>
+		<if test="createTime != null">`create_time` = #{createTime},</if>
+		<if test="updateTime != null">`update_time` = #{updateTime},</if>
+		<if test="tradeno != null">`tradeno` = #{tradeno},</if>
+	</trim>
+	where `id` = #{id}
+</update>
+<select id="getBy" parameterType="com.mjapp.model.OrderSubTb" resultMap="orderSubTbResultMap">
+	select * from `order_sub_tb`
+	<trim prefix="where" prefixOverrides="AND|OR">
+		<if test="id != null">AND `id` = #{id} </if>
+		<if test="payTypeCode != null">AND `pay_type_code` = #{payTypeCode} </if>
+		<if test="payTypeName != null">AND `pay_type_name` = #{payTypeName} </if>
+		<if test="orderId != null">AND `order_id` = #{orderId} </if>
+		<if test="orderSn != null">AND `order_sn` = #{orderSn} </if>
+		<if test="activityName != null">AND `activity_name` = #{activityName} </if>
+		<if test="activityId != null">AND `activity_id` = #{activityId} </if>
+		<if test="storeJson != null">AND `store_json` = #{storeJson} </if>
+		<if test="goodsJson != null">AND `goods_json` = #{goodsJson} </if>
+		<if test="billFlag != null">AND `bill_flag` = #{billFlag} </if>
+		<if test="createTime != null">AND `create_time` = #{createTime} </if>
+		<if test="updateTime != null">AND `update_time` = #{updateTime} </if>
+		<if test="tradeno != null">AND `tradeno` = #{tradeno} </if>
+	</trim>
+</select>
+<select id="getConditionBy" parameterType="com.mjapp.model.OrderSubTb" resultMap="orderSubTbResultMap">
+	select * from `order_sub_tb`
+	<trim prefix="where" prefixOverrides="AND|OR">
+		<if test="id != null">AND `id` = #{id} </if>
+		<if test="payTypeCode != null">AND `pay_type_code` = #{payTypeCode} </if>
+		<if test="payTypeName != null">AND `pay_type_name` = #{payTypeName} </if>
+		<if test="orderId != null">AND `order_id` = #{orderId} </if>
+		<if test="orderSn != null">AND `order_sn` = #{orderSn} </if>
+		<if test="activityName != null">AND `activity_name` = #{activityName} </if>
+		<if test="activityId != null">AND `activity_id` = #{activityId} </if>
+		<if test="storeJson != null">AND `store_json` = #{storeJson} </if>
+		<if test="goodsJson != null">AND `goods_json` = #{goodsJson} </if>
+		<if test="billFlag != null">AND `bill_flag` = #{billFlag} </if>
+		<if test="createTime != null">AND `create_time` = #{createTime} </if>
+		<if test="updateTime != null">AND `update_time` = #{updateTime} </if>
+		<if test="tradeno != null">AND `tradeno` = #{tradeno} </if> 
+		<if test="maxParameter != null">AND ${maxParameter} &lt;= #{maxValue}</if>
+		<if test="minParameter != null"> AND ${minParameter} &gt; #{minValue}</if>
+	</trim>
+	<trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+		<if test="sequence1 != null">${sequence1} ${sequence1Type},</if>
+		<if test="sequence2 != null">${sequence2} ${sequence2Type}</if>
+	</trim>
+	<trim prefix="LIMIT">
+		<if test="skipNum != null and pageNum != null"> ${skipNum},${pageNum}</if>
+	</trim>
+</select>
+<select id="getUniqueBy" parameterType="com.mjapp.model.OrderSubTb" resultMap="orderSubTbResultMap">
+	select * from `order_sub_tb`
+	<trim prefix="where" prefixOverrides="AND|OR">
+		<if test="id != null">AND `id` = #{id} </if>
+		<if test="payTypeCode != null">AND `pay_type_code` = #{payTypeCode} </if>
+		<if test="payTypeName != null">AND `pay_type_name` = #{payTypeName} </if>
+		<if test="orderId != null">AND `order_id` = #{orderId} </if>
+		<if test="orderSn != null">AND `order_sn` = #{orderSn} </if>
+		<if test="activityName != null">AND `activity_name` = #{activityName} </if>
+		<if test="activityId != null">AND `activity_id` = #{activityId} </if>
+		<if test="storeJson != null">AND `store_json` = #{storeJson} </if>
+		<if test="goodsJson != null">AND `goods_json` = #{goodsJson} </if>
+		<if test="billFlag != null">AND `bill_flag` = #{billFlag} </if>
+		<if test="createTime != null">AND `create_time` = #{createTime} </if>
+		<if test="updateTime != null">AND `update_time` = #{updateTime} </if>
+		<if test="tradeno != null">AND `tradeno` = #{tradeno} </if>
+	</trim>
+</select>
+<select id="count" parameterType="com.mjapp.model.OrderSubTb" resultType="java.lang.Integer">
+	select count(*) from `order_sub_tb`
+	<trim prefix="where" prefixOverrides="AND|OR">
+		<if test="payTypeCode != null">AND `pay_type_code` = #{payTypeCode} </if>
+		<if test="payTypeName != null">AND `pay_type_name` = #{payTypeName} </if>
+		<if test="orderId != null">AND `order_id` = #{orderId} </if>
+		<if test="orderSn != null">AND `order_sn` = #{orderSn} </if>
+		<if test="activityName != null">AND `activity_name` = #{activityName} </if>
+		<if test="activityId != null">AND `activity_id` = #{activityId} </if>
+		<if test="storeJson != null">AND `store_json` = #{storeJson} </if>
+		<if test="goodsJson != null">AND `goods_json` = #{goodsJson} </if>
+		<if test="billFlag != null">AND `bill_flag` = #{billFlag} </if>
+		<if test="createTime != null">AND `create_time` = #{createTime} </if>
+		<if test="updateTime != null">AND `update_time` = #{updateTime} </if>
+		<if test="tradeno != null">AND `tradeno` = #{tradeno} </if>
+	</trim>
+</select>
+</mapper>

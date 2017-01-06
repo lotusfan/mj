@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjapp.dao.PraiseTbMapper">
+
+    <resultMap id="praiseTbResultMap" type="com.mjapp.model.PraiseTb">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="user_news_id" property="userNewsId"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="news_id" property="newsId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <insert id="save" parameterType="com.mjapp.model.PraiseTb" useGeneratedKeys="true" keyProperty="id">
+        insert into `praise_tb`(
+        <trim suffixOverrides=",">
+            <if test="userId != null">`user_id`,</if>
+            <if test="userNewsId != null">`user_news_id`,</if>
+            <if test="deleteFlag != null">`delete_flag`,</if>
+            <if test="newsId != null">`news_id`,</if>
+            <if test="createTime != null">`create_time`,</if>
+            <if test="updateTime != null">`update_time`,</if>
+        </trim>
+        )values(
+        <trim suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="userNewsId != null">#{userNewsId},</if>
+            <if test="deleteFlag != null">#{deleteFlag},</if>
+            <if test="newsId != null">#{newsId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+        )
+    </insert>
+    <update id="update" parameterType="com.mjapp.model.PraiseTb">
+        update `praise_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="userId != null">`user_id` = #{userId},</if>
+            <if test="userNewsId != null">`user_news_id` = #{userNewsId},</if>
+            <if test="deleteFlag != null">`delete_flag` = #{deleteFlag},</if>
+            <if test="newsId != null">`news_id` = #{newsId},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="updateTime != null">`update_time` = #{updateTime},</if>
+        </trim>
+        where `id` = #{id}
+    </update>
+
+    <update id="updateBy" parameterType="com.mjapp.model.PraiseTb">
+        update `praise_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="deleteFlag != null">`delete_flag` = #{deleteFlag},</if>
+        </trim>
+        where
+        <trim prefix="" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="userNewsId != null">AND `user_news_id` = #{userNewsId}</if>
+            <if test="newsId != null">AND `news_id` = #{newsId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+        </trim>
+    </update>
+
+
+    <select id="getBy" parameterType="com.mjapp.model.PraiseTb" resultMap="praiseTbResultMap">
+        select * from `praise_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="userNewsId != null">AND `user_news_id` = #{userNewsId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="newsId != null">AND `news_id` = #{newsId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+        </trim>
+    </select>
+    <select id="getConditionBy" parameterType="com.mjapp.model.PraiseTb" resultMap="praiseTbResultMap">
+        select * from `praise_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="userNewsId != null">AND `user_news_id` = #{userNewsId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="newsId != null">AND `news_id` = #{newsId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+            <if test="maxParameter != null">AND ${maxParameter} &lt;= #{maxValue}</if>
+            <if test="minParameter != null">AND ${minParameter} &gt; #{minValue}</if>
+        </trim>
+        <trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+            <if test="sequence1 != null">${sequence1} ${sequence1Type},</if>
+            <if test="sequence2 != null">${sequence2} ${sequence2Type}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+    <select id="getUniqueBy" parameterType="com.mjapp.model.PraiseTb" resultMap="praiseTbResultMap">
+        select * from `praise_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="userNewsId != null">AND `user_news_id` = #{userNewsId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="newsId != null">AND `news_id` = #{newsId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+        </trim>
+    </select>
+    <select id="count" parameterType="com.mjapp.model.PraiseTb" resultType="java.lang.Integer">
+        select count(*) from `praise_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="userNewsId != null">AND `user_news_id` = #{userNewsId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="newsId != null">AND `news_id` = #{newsId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+        </trim>
+    </select>
+
+    <select id="getPraiseUserViewConditionBy" parameterType="com.mjapp.model.PraiseTb"
+            resultMap="com.mjapp.dao.UserTbMapper.userViewResultMap">
+        select u.*, p.create_time as relevanceCreateTime from praise_tb p INNER JOIN user_tb u ON p.user_id = u.id
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND p.id = #{id}</if>
+            <if test="userId != null">AND p.user_id = #{userId}</if>
+            <if test="userNewsId != null">AND p.user_news_id = #{userNewsId}</if>
+            <if test="deleteFlag != null">AND p.delete_flag = #{deleteFlag}</if>
+            <if test="newsId != null">AND p.news_id = #{newsId}</if>
+            <if test="createTime != null">AND p.create_time = #{createTime}</if>
+            <if test="updateTime != null">AND p.update_time = #{updateTime}</if>
+            <if test="maxParameter != null">AND p.${maxParameter} &lt;= #{maxValue}</if>
+            <if test="minParameter != null">AND p.${minParameter} &gt; #{minValue}</if>
+        </trim>
+        <trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+            <if test="sequence1 != null">p.${sequence1} ${sequence1Type},</if>
+            <if test="sequence2 != null">p.${sequence2} ${sequence2Type}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+</mapper>

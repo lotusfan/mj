@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjapp.dao.MJAdvanceQueryMapper">
+
+    <select id="queryUserLikeNickName" parameterType="String" resultMap="com.mjapp.dao.UserTbMapper.userViewResultMap">
+        select * from `user_tb` where nick_name LIKE concat('%', #{str},'%') limit 0, 5
+    </select>
+
+
+    <select id="queryActivityLikeUserNameAndLikeActivityName" parameterType="String"
+            resultMap="com.mjapp.dao.ActivityTbMapper.activityTbResultMap">
+        select * from `activity_tb` a INNER JOIN `user_tb` u ON a.create_user_id = u.id where concat(a.name, u.nick_name) like concat('%',#{str},'%') limit 0, 5
+    </select>
+
+
+    <select id="queryRecommendUser" parameterType="com.mjapp.model.RecommendUserTb"
+            resultMap="com.mjapp.dao.UserTbMapper.userViewResultMap">
+        SELECT
+        *
+        FROM
+        user_tb u
+        LEFT JOIN recommend_user_tb ru
+        ON u.id = ru.user_id
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="userId != null">
+                u.id NOT IN (
+                SELECT
+                passive_user_id
+                FROM
+                user_focus_tb
+                WHERE
+                active_user_id = #{userId}
+                )
+            </if>
+            <if test="sex != null">
+            AND u.sex = #{sex}
+            </if>
+        </trim>
+        order by ru.sort desc
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+    <select id="queryRecommendActivity" resultMap="com.mjapp.dao.ActivityTbMapper.activityTbResultMap">
+        SELECT
+        a.*, u.*
+        FROM
+        activity_tb a
+        LEFT JOIN recommend_activity_tb ra
+        ON a.id = ra.activity_id
+        INNER JOIN user_tb u
+        ON a.create_user_id = u.id
+        order by ra.sort desc
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+
+
+    <select id="queryUserLifeByUserIds" parameterType="com.mjapp.model.UserLifeLineTb" resultMap="com.mjapp.dao.UserLifeLineTbMapper.userLifeLineTbResultMap">
+        select * from `user_life_line_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="ids!=null ">
+                AND `user_id` IN
+                <foreach item="item" index="index" collection="ids" open="("
+                         separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </trim>
+        ORDER BY id DESC
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+
+    </select>
+
+
+    <!--<select id="getConditionBy" parameterType="String" resultMap="com.mjapp.dao.UserTbMapper.userTbResultMap">-->
+    <!--select * from `user_tb`-->
+    <!--<trim prefix="where" prefixOverrides="AND|OR">-->
+    <!--<if test="id != null">AND `id` = #{id}</if>-->
+    <!--<if test="loginName != null">AND `login_name` = #{loginName}</if>-->
+    <!--<if test="password != null">AND `password` = #{password}</if>-->
+    <!--<if test="realName != null">AND `real_name` = #{realName}</if>-->
+    <!--<if test="cardNum != null">AND `card_num` = #{cardNum}</if>-->
+    <!--<if test="signature != null">AND `signature` = #{signature}</if>-->
+    <!--<if test="nickName != null">AND `nick_name` = #{nickName}</if>-->
+    <!--<if test="sex != null">AND `sex` = #{sex}</if>-->
+    <!--<if test="age != null">AND `age` = #{age}</if>-->
+    <!--<if test="city != null">AND `city` = #{city}</if>-->
+    <!--<if test="school != null">AND `school` = #{school}</if>-->
+    <!--<if test="job != null">AND `job` = #{job}</if>-->
+    <!--<if test="jobTrade != null">AND `job_trade` = #{jobTrade}</if>-->
+    <!--<if test="headPic != null">AND `head_pic` = #{headPic}</if>-->
+    <!--<if test="backgroundPic != null">AND `background_pic` = #{backgroundPic}</if>-->
+    <!--<if test="authentication != null">AND `authentication` = #{authentication}</if>-->
+    <!--<if test="createTime != null">AND `create_time` = #{createTime}</if>-->
+    <!--<if test="updateTime != null">AND `update_time` = #{updateTime}</if>-->
+    <!--<if test="maxParameter != null">AND ${maxParameter} &lt;= #{maxValue}</if>-->
+    <!--<if test="minParameter != null">AND ${minParameter} &gt; #{minValue}</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">-->
+    <!--<if test="sequence1 != null">${sequence1} ${sequence1Type},</if>-->
+    <!--<if test="sequence2 != null">${sequence2} ${sequence2Type}</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="LIMIT">-->
+    <!--<if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>-->
+    <!--</trim>-->
+    <!--</select>-->
+
+</mapper>

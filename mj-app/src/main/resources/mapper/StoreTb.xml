@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjapp.dao.StoreTbMapper">
+
+    <resultMap id="storeTbResultMap" type="com.mjapp.model.StoreTb">
+        <id column="id" property="id"/>
+        <result column="position1" property="position1"/>
+        <result column="position2" property="position2"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="position3" property="position3"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="general" property="general"/>
+        <result column="recommend" property="recommend"/>
+        <result column="pic_json" property="picJson"/>
+        <result column="head_pic" property="headPic"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <association property="goodsTb" javaType="com.mjapp.model.GoodsTb"
+                     resultMap="com.mjapp.dao.GoodsTbMapper.goodsTbResultMap"/>
+    </resultMap>
+
+    <sql id="query_where">
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND s.id = #{id}</if>
+            <if test="position1 != null">AND s.position1 = #{position1}</if>
+            <if test="position2 != null">AND s.position2 = #{position2}</if>
+            <if test="name != null">AND s.name = #{name}</if>
+            <if test="type != null">AND s.type = #{type}</if>
+            <if test="position3 != null">AND s.position3 = #{position3}</if>
+            <if test="startTime != null">AND s.start_time = #{startTime}</if>
+            <if test="endTime != null">AND s.end_time = #{endTime}</if>
+            <if test="general != null">AND s.general = #{general}</if>
+            <if test="recommend != null">AND s.recommend = #{recommend}</if>
+            <if test="picJson != null">AND s.pic_json = #{picJson}</if>
+            <if test="headPic != null">AND s.head_pic = #{headPic}</if>
+            <if test="createTime != null">AND s.create_time = #{createTime}</if>
+            <if test="updateTime != null">AND s.update_time = #{updateTime}</if>
+        </trim>
+    </sql>
+    <sql id="query_condition">
+        <trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+            <if test="sequence1 != null">s.${sequence1} ${sequence1Type},</if>
+            <if test="sequence2 != null">s.${sequence2} ${sequence2Type}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </sql>
+    <insert id="save" parameterType="com.mjapp.model.StoreTb" useGeneratedKeys="true" keyProperty="id">
+        insert into `store_tb`(
+        <trim suffixOverrides=",">
+            <if test="position1 != null">`position1`,</if>
+            <if test="position2 != null">`position2`,</if>
+            <if test="name != null">`name`,</if>
+            <if test="type != null">`type`,</if>
+            <if test="position3 != null">`position3`,</if>
+            <if test="startTime != null">`start_time`,</if>
+            <if test="endTime != null">`end_time`,</if>
+            <if test="general != null">`general`,</if>
+            <if test="recommend != null">`recommend`,</if>
+            <if test="picJson != null">`pic_json`,</if>
+            <if test="headPic != null">`head_pic`,</if>
+            <if test="createTime != null">`create_time`,</if>
+            <if test="updateTime != null">`update_time`,</if>
+        </trim>
+        )values(
+        <trim suffixOverrides=",">
+            <if test="position1 != null">#{position1},</if>
+            <if test="position2 != null">#{position2},</if>
+            <if test="name != null">#{name},</if>
+            <if test="type != null">#{type},</if>
+            <if test="position3 != null">#{position3},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="general != null">#{general},</if>
+            <if test="recommend != null">#{recommend},</if>
+            <if test="picJson != null">#{picJson},</if>
+            <if test="headPic != null">#{headPic},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+        )
+    </insert>
+    <update id="update" parameterType="com.mjapp.model.StoreTb">
+        update `store_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="position1 != null">`position1` = #{position1},</if>
+            <if test="position2 != null">`position2` = #{position2},</if>
+            <if test="name != null">`name` = #{name},</if>
+            <if test="type != null">`type` = #{type},</if>
+            <if test="position3 != null">`position3` = #{position3},</if>
+            <if test="startTime != null">`start_time` = #{startTime},</if>
+            <if test="endTime != null">`end_time` = #{endTime},</if>
+            <if test="general != null">`general` = #{general},</if>
+            <if test="recommend != null">`recommend` = #{recommend},</if>
+            <if test="picJson != null">`pic_json` = #{picJson},</if>
+            <if test="headPic != null">`head_pic` = #{headPic},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="updateTime != null">`update_time` = #{updateTime},</if>
+        </trim>
+        where `id` = #{id}
+    </update>
+    <select id="getBy" parameterType="com.mjapp.model.StoreTb" resultMap="storeTbResultMap">
+        select * from store_tb s INNER JOIN goods_tb g ON s.id = g.store_id
+        <include refid="query_where"/>
+    </select>
+    <select id="getConditionBy" parameterType="com.mjapp.model.StoreTb" resultMap="storeTbResultMap">
+        select * from store_tb s INNER JOIN goods_tb g ON s.id = g.store_id
+        <include refid="query_where"/>
+        <include refid="query_condition"/>
+    </select>
+    <select id="getUniqueBy" parameterType="com.mjapp.model.StoreTb" resultMap="storeTbResultMap">
+        select * from store_tb s INNER JOIN goods_tb g ON s.id = g.store_id
+        <include refid="query_where"/>
+    </select>
+    <select id="count" parameterType="com.mjapp.model.StoreTb" resultType="java.lang.Integer">
+        select count(*) from `store_tb`
+        <include refid="query_where"/>
+    </select>
+
+    <select id="storeListByCycle" parameterType="com.mjapp.model.StoreTb" resultMap="storeTbResultMap">
+        select * from `store_tb` s INNER JOIN `goods_tb` g ON s.id = g.store_id
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="position1 != null">OR `position1` LIKE CONCAT('%','${position1}','%' )</if>
+            <if test="position2 != null">OR `position2` LIKE CONCAT('%','${position2}','%' )</if>
+            <if test="position3 != null">OR `position3` LIKE CONCAT('%','${position3}','%' )</if>
+        </trim>
+    </select>
+
+
+</mapper>

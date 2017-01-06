@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjapp.dao.NewsCommentTbMapper">
+
+    <resultMap id="newsCommentTbResultMap" type="com.mjapp.model.NewsCommentTb">
+        <id column="id" property="id"/>
+        <result column="news_id" property="newsId"/>
+        <result column="news_user_id" property="newsUserId"/>
+        <result column="user_id" property="userId"/>
+        <result column="reply_user_id" property="replyUserId"/>
+        <result column="parent_comment_id" property="parentCommentId"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="create_time" property="createTime"/>
+        <result column="content" property="content"/>
+        <association property="userView" javaType="com.mjapp.model.view.UserView"
+                     resultMap="com.mjapp.dao.UserTbMapper.userViewResultMap"/>
+    </resultMap>
+    <insert id="save" parameterType="com.mjapp.model.NewsCommentTb" useGeneratedKeys="true" keyProperty="id">
+        insert into `news_comment_tb`(
+        <trim suffixOverrides=",">
+            <if test="newsId != null">`news_id`,</if>
+            <if test="newsUserId != null">`news_user_id`,</if>
+            <if test="userId != null">`user_id`,</if>
+            <if test="replyUserId != null">`reply_user_id`,</if>
+            <if test="parentCommentId != null">`parent_comment_id`,</if>
+            <if test="deleteFlag != null">`delete_flag`,</if>
+            <if test="createTime != null">`create_time`,</if>
+            <if test="content != null">`content`,</if>
+        </trim>
+        )values(
+        <trim suffixOverrides=",">
+            <if test="newsId != null">#{newsId},</if>
+            <if test="newsUserId != null">#{newsUserId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="replyUserId != null">#{replyUserId},</if>
+            <if test="parentCommentId != null">#{parentCommentId},</if>
+            <if test="deleteFlag != null">#{deleteFlag},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="content != null">#{content},</if>
+        </trim>
+        )
+    </insert>
+    <update id="update" parameterType="com.mjapp.model.NewsCommentTb">
+        update `news_comment_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="newsId != null">`news_id` = #{newsId},</if>
+            <if test="newsUserId != null">`news_user_id` = #{newsUserId},</if>
+            <if test="userId != null">`user_id` = #{userId},</if>
+            <if test="replyUserId != null">`reply_user_id` = #{replyUserId},</if>
+            <if test="parentCommentId != null">`parent_comment_id` = #{parentCommentId},</if>
+            <if test="deleteFlag != null">`delete_flag` = #{deleteFlag},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="content != null">`content` = #{content},</if>
+        </trim>
+        where `id` = #{id}
+    </update>
+
+    <update id="updateSign" parameterType="com.mjapp.model.NewsCommentTb">
+        update `news_comment_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="deleteFlag != null">`delete_flag` = #{deleteFlag},</if>
+        </trim>
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="newsId != null">AND `news_id` = #{newsId}</if>
+            <if test="newsUserId != null">AND `news_user_id` = #{newsUserId}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="replyUserId != null">AND `reply_user_id` = #{replyUserId}</if>
+            <if test="parentCommentId != null">AND `parent_comment_id` = #{parentCommentId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="content != null">AND `content` = #{content}</if>
+        </trim>
+    </update>
+
+
+    <select id="getBy" parameterType="com.mjapp.model.NewsCommentTb" resultMap="newsCommentTbResultMap">
+        select * from `news_comment_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="newsId != null">AND `news_id` = #{newsId}</if>
+            <if test="newsUserId != null">AND `news_user_id` = #{newsUserId}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="replyUserId != null">AND `reply_user_id` = #{replyUserId}</if>
+            <if test="parentCommentId != null">AND `parent_comment_id` = #{parentCommentId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="content != null">AND `content` = #{content}</if>
+        </trim>
+    </select>
+    <select id="getConditionBy" parameterType="com.mjapp.model.NewsCommentTb" resultMap="newsCommentTbResultMap">
+        select * from `news_comment_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="newsId != null">AND `news_id` = #{newsId}</if>
+            <if test="newsUserId != null">AND `news_user_id` = #{newsUserId}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="replyUserId != null">AND `reply_user_id` = #{replyUserId}</if>
+            <if test="parentCommentId != null">AND `parent_comment_id` = #{parentCommentId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="content != null">AND `content` = #{content}</if>
+            <if test="maxParameter != null">AND ${maxParameter} &lt;= #{maxValue}</if>
+            <if test="minParameter != null">AND ${minParameter} &gt; #{minValue}</if>
+        </trim>
+        <trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+            <if test="sequence1 != null">${sequence1} ${sequence1Type},</if>
+            <if test="sequence2 != null">${sequence2} ${sequence2Type}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+    <select id="getUniqueBy" parameterType="com.mjapp.model.NewsCommentTb" resultMap="newsCommentTbResultMap">
+        select * from `news_comment_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="newsId != null">AND `news_id` = #{newsId}</if>
+            <if test="newsUserId != null">AND `news_user_id` = #{newsUserId}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="replyUserId != null">AND `reply_user_id` = #{replyUserId}</if>
+            <if test="parentCommentId != null">AND `parent_comment_id` = #{parentCommentId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="content != null">AND `content` = #{content}</if>
+        </trim>
+    </select>
+    <select id="count" parameterType="com.mjapp.model.NewsCommentTb" resultType="java.lang.Integer">
+        select count(*) from `news_comment_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="newsId != null">AND `news_id` = #{newsId}</if>
+            <if test="newsUserId != null">AND `news_user_id` = #{newsUserId}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="replyUserId != null">AND `reply_user_id` = #{replyUserId}</if>
+            <if test="parentCommentId != null">AND `parent_comment_id` = #{parentCommentId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="content != null">AND `content` = #{content}</if>
+        </trim>
+    </select>
+
+    <select id="getConditionByIncludeUserView" parameterType="com.mjapp.model.NewsCommentTb"
+            resultMap="newsCommentTbResultMap">
+        select * from news_comment_tb nc INNER JOIN user_tb u ON nc.user_id = u.id
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND nc.id = #{id}</if>
+            <if test="newsId != null">AND nc.news_id = #{newsId}</if>
+            <if test="newsUserId != null">AND nc.news_user_id = #{newsUserId}</if>
+            <if test="userId != null">AND nc.user_id = #{userId}</if>
+            <if test="replyUserId != null">AND nc.reply_user_id = #{replyUserId}</if>
+            <if test="parentCommentId != null">AND nc.parent_comment_id = #{parentCommentId}</if>
+            <if test="deleteFlag != null">AND nc.delete_flag = #{deleteFlag}</if>
+            <if test="createTime != null">AND nc.create_time = #{createTime}</if>
+            <if test="content != null">AND nc.content = #{content}</if>
+            <if test="maxParameter != null">AND nc.${maxParameter} &lt;= #{maxValue}</if>
+            <if test="minParameter != null">AND nc.${minParameter} &gt; #{minValue}</if>
+        </trim>
+        <trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+            <if test="sequence1 != null">nc.${sequence1} ${sequence1Type},</if>
+            <if test="sequence2 != null">nc.${sequence2} ${sequence2Type}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+
+</mapper>

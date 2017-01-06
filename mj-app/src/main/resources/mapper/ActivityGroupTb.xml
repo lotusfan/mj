@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjapp.dao.ActivityGroupTbMapper">
+
+    <resultMap id="activityGroupTbResultMap" type="com.mjapp.model.ActivityGroupTb">
+        <id column="id" property="id"/>
+        <result column="join_user_id" property="joinUserId"/>
+        <result column="create_user_id" property="createUserId"/>
+        <result column="activity_id" property="activityId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <insert id="save" parameterType="com.mjapp.model.ActivityGroupTb" useGeneratedKeys="true" keyProperty="id">
+        insert into `activity_group_tb`(
+        <trim suffixOverrides=",">
+            <if test="joinUserId != null">`join_user_id`,</if>
+            <if test="createUserId != null">`create_user_id`,</if>
+            <if test="activityId != null">`activity_id`,</if>
+            <if test="createTime != null">`create_time`,</if>
+            <if test="deleteFlag != null">`delete_flag`,</if>
+            <if test="updateTime != null">`update_time`,</if>
+        </trim>
+        )values(
+        <trim suffixOverrides=",">
+            <if test="joinUserId != null">#{joinUserId},</if>
+            <if test="createUserId != null">#{createUserId},</if>
+            <if test="activityId != null">#{activityId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="deleteFlag != null">#{deleteFlag},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+        )
+    </insert>
+    <update id="update" parameterType="com.mjapp.model.ActivityGroupTb">
+        update `activity_group_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="joinUserId != null">`join_user_id` = #{joinUserId},</if>
+            <if test="createUserId != null">`create_user_id` = #{createUserId},</if>
+            <if test="activityId != null">`activity_id` = #{activityId},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="deleteFlag != null">`delete_flag` = #{deleteFlag},</if>
+            <if test="updateTime != null">`update_time` = #{updateTime},</if>
+        </trim>
+        where `id` = #{id}
+    </update>
+    <select id="getBy" parameterType="com.mjapp.model.ActivityGroupTb" resultMap="activityGroupTbResultMap">
+        select * from `activity_group_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="joinUserId != null">AND `join_user_id` = #{joinUserId}</if>
+            <if test="createUserId != null">AND `create_user_id` = #{createUserId}</if>
+            <if test="activityId != null">AND `activity_id` = #{activityId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+        </trim>
+    </select>
+    <select id="getConditionBy" parameterType="com.mjapp.model.ActivityGroupTb" resultMap="activityGroupTbResultMap">
+        select * from `activity_group_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="joinUserId != null">AND `join_user_id` = #{joinUserId}</if>
+            <if test="createUserId != null">AND `create_user_id` = #{createUserId}</if>
+            <if test="activityId != null">AND `activity_id` = #{activityId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+            <if test="maxParameter != null">AND ${maxParameter} &lt;= #{maxValue}</if>
+            <if test="minParameter != null">AND ${minParameter} &gt; #{minValue}</if>
+        </trim>
+        <trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+            <if test="sequence1 != null">${sequence1} ${sequence1Type},</if>
+            <if test="sequence2 != null">${sequence2} ${sequence2Type}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+    <select id="getUniqueBy" parameterType="com.mjapp.model.ActivityGroupTb" resultMap="activityGroupTbResultMap">
+        select * from `activity_group_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="joinUserId != null">AND `join_user_id` = #{joinUserId}</if>
+            <if test="createUserId != null">AND `create_user_id` = #{createUserId}</if>
+            <if test="activityId != null">AND `activity_id` = #{activityId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+        </trim>
+    </select>
+    <select id="count" parameterType="com.mjapp.model.ActivityGroupTb" resultType="java.lang.Integer">
+        select count(*) from `activity_group_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="joinUserId != null">AND `join_user_id` = #{joinUserId}</if>
+            <if test="createUserId != null">AND `create_user_id` = #{createUserId}</if>
+            <if test="activityId != null">AND `activity_id` = #{activityId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+        </trim>
+    </select>
+
+    <select id="getActivityGroupUserViewBy" parameterType="com.mjapp.model.ActivityGroupTb" resultMap="com.mjapp.dao.UserTbMapper.userViewResultMap">
+        select u.* from `activity_group_tb` ag INNER JOIN `user_tb` u ON ag.join_user_id = u.id
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="joinUserId != null">AND `join_user_id` = #{joinUserId}</if>
+            <if test="createUserId != null">AND `create_user_id` = #{createUserId}</if>
+            <if test="activityId != null">AND `activity_id` = #{activityId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+        </trim>
+    </select>
+</mapper>

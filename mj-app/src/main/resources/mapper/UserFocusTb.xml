@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjapp.dao.UserFocusTbMapper">
+
+    <resultMap id="userFocusTbResultMap" type="com.mjapp.model.UserFocusTb">
+        <id column="id" property="id"/>
+        <result column="active_user_id" property="activeUserId"/>
+        <result column="passive_user_id" property="passiveUserId"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+    <insert id="save" parameterType="com.mjapp.model.UserFocusTb" useGeneratedKeys="true" keyProperty="id">
+        insert into `user_focus_tb`(
+        <trim suffixOverrides=",">
+            <if test="activeUserId != null">`active_user_id`,</if>
+            <if test="passiveUserId != null">`passive_user_id`,</if>
+            <if test="deleteFlag != null">`delete_flag`,</if>
+            <if test="createTime != null">`create_time`,</if>
+        </trim>
+        )values(
+        <trim suffixOverrides=",">
+            <if test="activeUserId != null">#{activeUserId},</if>
+            <if test="passiveUserId != null">#{passiveUserId},</if>
+            <if test="deleteFlag != null">#{deleteFlag},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+        )
+    </insert>
+    <update id="update" parameterType="com.mjapp.model.UserFocusTb">
+        update `user_focus_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="activeUserId != null">`active_user_id` = #{activeUserId},</if>
+            <if test="passiveUserId != null">`passive_user_id` = #{passiveUserId},</if>
+            <if test="deleteFlag != null">`delete_flag` = #{deleteFlag},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+        </trim>
+        where `id` = #{id}
+    </update>
+    <select id="getBy" parameterType="com.mjapp.model.UserFocusTb" resultMap="userFocusTbResultMap">
+        select * from `user_focus_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="activeUserId != null">AND `active_user_id` = #{activeUserId}</if>
+            <if test="passiveUserId != null">AND `passive_user_id` = #{passiveUserId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+        </trim>
+    </select>
+    <select id="getConditionBy" parameterType="com.mjapp.model.UserFocusTb" resultMap="userFocusTbResultMap">
+        select * from `user_focus_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="activeUserId != null">AND `active_user_id` = #{activeUserId}</if>
+            <if test="passiveUserId != null">AND `passive_user_id` = #{passiveUserId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="maxParameter != null">AND ${maxParameter} &lt;= #{maxValue}</if>
+            <if test="minParameter != null">AND ${minParameter} &gt; #{minValue}</if>
+        </trim>
+        <trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+            <if test="sequence1 != null">${sequence1} ${sequence1Type},</if>
+            <if test="sequence2 != null">${sequence2} ${sequence2Type}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+    <select id="getUniqueBy" parameterType="com.mjapp.model.UserFocusTb" resultMap="userFocusTbResultMap">
+        select * from `user_focus_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="activeUserId != null">AND `active_user_id` = #{activeUserId}</if>
+            <if test="passiveUserId != null">AND `passive_user_id` = #{passiveUserId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+        </trim>
+    </select>
+    <select id="count" parameterType="com.mjapp.model.UserFocusTb" resultType="java.lang.Integer">
+        select count(*) from `user_focus_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="activeUserId != null">AND `active_user_id` = #{activeUserId}</if>
+            <if test="passiveUserId != null">AND `passive_user_id` = #{passiveUserId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+        </trim>
+    </select>
+
+    <select id="getFocusUserViewBy" parameterType="com.mjapp.model.UserFocusTb"
+            resultMap="com.mjapp.dao.UserTbMapper.userViewResultMap">
+        select u.* from `user_focus_tb` uf INNER JOIN `user_tb` u ON uf.active_user_id = u.id
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND uf.id = #{id}</if>
+            <if test="activeUserId != null">AND uf.active_user_id = #{activeUserId}</if>
+            <if test="passiveUserId != null">AND uf.passive_user_id = #{passiveUserId}</if>
+            <if test="deleteFlag != null">AND uf.delete_flag = #{deleteFlag}</if>
+            <if test="createTime != null">AND uf.create_time = #{createTime}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+    <select id="getFocusedUserViewBy" parameterType="com.mjapp.model.UserFocusTb"
+            resultMap="com.mjapp.dao.UserTbMapper.userViewResultMap">
+        select u.* from `user_focus_tb` uf INNER JOIN `user_tb` u ON uf.passive_user_id = u.id
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND uf.id = #{id}</if>
+            <if test="activeUserId != null">AND uf.active_user_id = #{activeUserId}</if>
+            <if test="passiveUserId != null">AND uf.passive_user_id = #{passiveUserId}</if>
+            <if test="deleteFlag != null">AND uf.delete_flag = #{deleteFlag}</if>
+            <if test="createTime != null">AND uf.create_time = #{createTime}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+    <select id="getFocusUserIdByactiveUserId" parameterType="com.mjapp.model.UserFocusTb" resultType="Integer">
+        select passive_user_id from `user_focus_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="ids!=null ">
+                AND `active_user_id` IN
+                <foreach item="item" index="index" collection="ids" open="("
+                         separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </trim>
+
+    </select>
+</mapper>

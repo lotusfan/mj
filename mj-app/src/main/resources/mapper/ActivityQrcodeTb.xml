@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjapp.dao.ActivityQrcodeTbMapper">
+
+<resultMap id="activityQrcodeTbResultMap" type="com.mjapp.model.ActivityQrcodeTb">
+	<id column="id" property="id"/>
+	<result column="activity_id" property="activityId" />
+	<result column="qrcode_url" property="qrcodeUrl" />
+	<result column="activity_md5" property="activityMd5" />
+	<result column="delete_flag" property="deleteFlag" />
+	<result column="create_time" property="createTime" /> 
+</resultMap> 
+<insert id="save" parameterType="com.mjapp.model.ActivityQrcodeTb" useGeneratedKeys="true" keyProperty="id">
+	insert into `activity_qrcode_tb`(
+	<trim suffixOverrides=",">
+		<if test="activityId != null">`activity_id`,</if>
+		<if test="qrcodeUrl != null">`qrcode_url`,</if>
+		<if test="activityMd5 != null">`activity_md5`,</if>
+		<if test="deleteFlag != null">`delete_flag`,</if>
+		<if test="createTime != null">`create_time`,</if>
+	</trim>
+	)values(
+	<trim suffixOverrides=",">
+		<if test="activityId != null"> #{activityId},</if>
+		<if test="qrcodeUrl != null"> #{qrcodeUrl},</if>
+		<if test="activityMd5 != null"> #{activityMd5},</if>
+		<if test="deleteFlag != null"> #{deleteFlag},</if>
+		<if test="createTime != null"> #{createTime},</if>
+	</trim>
+	)
+</insert>
+<update id="update" parameterType="com.mjapp.model.ActivityQrcodeTb">
+	update `activity_qrcode_tb`
+	<trim prefix="set" suffixOverrides=",">
+		<if test="activityId != null">`activity_id` = #{activityId},</if>
+		<if test="qrcodeUrl != null">`qrcode_url` = #{qrcodeUrl},</if>
+		<if test="activityMd5 != null">`activity_md5` = #{activityMd5},</if>
+		<if test="deleteFlag != null">`delete_flag` = #{deleteFlag},</if>
+		<if test="createTime != null">`create_time` = #{createTime},</if>
+	</trim>
+	where `id` = #{id}
+</update>
+<select id="getBy" parameterType="com.mjapp.model.ActivityQrcodeTb" resultMap="activityQrcodeTbResultMap">
+	select * from `activity_qrcode_tb`
+	<trim prefix="where" prefixOverrides="AND|OR">
+		<if test="id != null">AND `id` = #{id} </if>
+		<if test="activityId != null">AND `activity_id` = #{activityId} </if>
+		<if test="qrcodeUrl != null">AND `qrcode_url` = #{qrcodeUrl} </if>
+		<if test="activityMd5 != null">AND `activity_md5` = #{activityMd5} </if>
+		<if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag} </if>
+		<if test="createTime != null">AND `create_time` = #{createTime} </if>
+	</trim>
+</select>
+<select id="getConditionBy" parameterType="com.mjapp.model.ActivityQrcodeTb" resultMap="activityQrcodeTbResultMap">
+	select * from `activity_qrcode_tb`
+	<trim prefix="where" prefixOverrides="AND|OR">
+		<if test="id != null">AND `id` = #{id} </if>
+		<if test="activityId != null">AND `activity_id` = #{activityId} </if>
+		<if test="qrcodeUrl != null">AND `qrcode_url` = #{qrcodeUrl} </if>
+		<if test="activityMd5 != null">AND `activity_md5` = #{activityMd5} </if>
+		<if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag} </if>
+		<if test="createTime != null">AND `create_time` = #{createTime} </if> 
+		<if test="maxParameter != null">AND ${maxParameter} &lt;= #{maxValue}</if>
+		<if test="minParameter != null"> AND ${minParameter} &gt; #{minValue}</if>
+	</trim>
+	<trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+		<if test="sequence1 != null">${sequence1} ${sequence1Type},</if>
+		<if test="sequence2 != null">${sequence2} ${sequence2Type}</if>
+	</trim>
+	<trim prefix="LIMIT">
+		<if test="skipNum != null and pageNum != null"> ${skipNum},${pageNum}</if>
+	</trim>
+</select>
+<select id="getUniqueBy" parameterType="com.mjapp.model.ActivityQrcodeTb" resultMap="activityQrcodeTbResultMap">
+	select * from `activity_qrcode_tb`
+	<trim prefix="where" prefixOverrides="AND|OR">
+		<if test="id != null">AND `id` = #{id} </if>
+		<if test="activityId != null">AND `activity_id` = #{activityId} </if>
+		<if test="qrcodeUrl != null">AND `qrcode_url` = #{qrcodeUrl} </if>
+		<if test="activityMd5 != null">AND `activity_md5` = #{activityMd5} </if>
+		<if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag} </if>
+		<if test="createTime != null">AND `create_time` = #{createTime} </if>
+	</trim>
+</select>
+<select id="count" parameterType="com.mjapp.model.ActivityQrcodeTb" resultType="java.lang.Integer">
+	select count(*) from `activity_qrcode_tb`
+	<trim prefix="where" prefixOverrides="AND|OR">
+		<if test="activityId != null">AND `activity_id` = #{activityId} </if>
+		<if test="qrcodeUrl != null">AND `qrcode_url` = #{qrcodeUrl} </if>
+		<if test="activityMd5 != null">AND `activity_md5` = #{activityMd5} </if>
+		<if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag} </if>
+		<if test="createTime != null">AND `create_time` = #{createTime} </if>
+	</trim>
+</select>
+</mapper>

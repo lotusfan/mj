@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjapp.dao.UserNewsTbMapper">
+
+    <resultMap id="userNewsTbResultMap" type="com.mjapp.model.UserNewsTb">
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="pic_json" property="picJson"/>
+        <result column="forward_flag" property="forwardFlag"/>
+        <result column="forward_news_id" property="forwardNewsId"/>
+        <result column="user_id" property="userId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <association property="userView" javaType="com.mjapp.model.view.UserView" resultMap="com.mjapp.dao.UserTbMapper.userViewResultMap" />
+    </resultMap>
+    <insert id="save" parameterType="com.mjapp.model.UserNewsTb" useGeneratedKeys="true" keyProperty="id">
+        insert into `user_news_tb`(
+        <trim suffixOverrides=",">
+            <if test="content != null">`content`,</if>
+            <if test="picJson != null">`pic_json`,</if>
+            <if test="forwardFlag != null">`forward_flag`,</if>
+            <if test="forwardNewsId != null">`forward_news_id`,</if>
+            <if test="userId != null">`user_id`,</if>
+            <if test="createTime != null">`create_time`,</if>
+            <if test="deleteFlag != null">`delete_flag`,</if>
+        </trim>
+        )values(
+        <trim suffixOverrides=",">
+            <if test="content != null">#{content},</if>
+            <if test="picJson != null">#{picJson},</if>
+            <if test="forwardFlag != null">#{forwardFlag},</if>
+            <if test="forwardNewsId != null">#{forwardNewsId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="deleteFlag != null">#{deleteFlag},</if>
+        </trim>
+        )
+    </insert>
+    <update id="update" parameterType="com.mjapp.model.UserNewsTb">
+        update `user_news_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="content != null">`content` = #{content},</if>
+            <if test="picJson != null">`pic_json` = #{picJson},</if>
+            <if test="forwardFlag != null">`forward_flag` = #{forwardFlag},</if>
+            <if test="forwardNewsId != null">`forward_news_id` = #{forwardNewsId},</if>
+            <if test="userId != null">`user_id` = #{userId},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="deleteFlag != null">`delete_flag` = #{deleteFlag},</if>
+        </trim>
+        where `id` = #{id}
+    </update>
+
+    <update id="updateSign" parameterType="com.mjapp.model.UserNewsTb">
+        update `user_news_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="forwardFlag != null">`forward_flag` = #{forwardFlag},</if>
+            <if test="deleteFlag != null">`delete_flag` = #{deleteFlag},</if>
+        </trim>
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="content != null">AND `content` = #{content}</if>
+            <if test="picJson != null">AND `pic_json` = #{picJson}</if>
+            <if test="forwardNewsId != null">AND `forward_news_id` = #{forwardNewsId}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+        </trim>
+    </update>
+
+
+
+    <select id="getBy" parameterType="com.mjapp.model.UserNewsTb" resultMap="userNewsTbResultMap">
+        select * from `user_news_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="content != null">AND `content` = #{content}</if>
+            <if test="picJson != null">AND `pic_json` = #{picJson}</if>
+            <if test="forwardFlag != null">AND `forward_flag` = #{forwardFlag}</if>
+            <if test="forwardNewsId != null">AND `forward_news_id` = #{forwardNewsId}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+        </trim>
+    </select>
+    <select id="getConditionBy" parameterType="com.mjapp.model.UserNewsTb" resultMap="userNewsTbResultMap">
+        select * from `user_news_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="content != null">AND `content` = #{content}</if>
+            <if test="picJson != null">AND `pic_json` = #{picJson}</if>
+            <if test="forwardFlag != null">AND `forward_flag` = #{forwardFlag}</if>
+            <if test="forwardNewsId != null">AND `forward_news_id` = #{forwardNewsId}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="maxParameter != null">AND ${maxParameter} &lt;= #{maxValue}</if>
+            <if test="minParameter != null">AND ${minParameter} &gt; #{minValue}</if>
+        </trim>
+        <trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+            <if test="sequence1 != null">${sequence1} ${sequence1Type},</if>
+            <if test="sequence2 != null">${sequence2} ${sequence2Type}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+    <select id="getUniqueBy" parameterType="com.mjapp.model.UserNewsTb" resultMap="userNewsTbResultMap">
+        select * from `user_news_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="content != null">AND `content` = #{content}</if>
+            <if test="picJson != null">AND `pic_json` = #{picJson}</if>
+            <if test="forwardFlag != null">AND `forward_flag` = #{forwardFlag}</if>
+            <if test="forwardNewsId != null">AND `forward_news_id` = #{forwardNewsId}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+        </trim>
+    </select>
+    <select id="getUniqueByIncludeUserView" parameterType="com.mjapp.model.UserNewsTb" resultMap="userNewsTbResultMap">
+        select * from `user_news_tb` un INNER JOIN `user_tb` u ON un.user_id = u.id
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND un.id = #{id} </if>
+            <if test="content != null">AND un.content = #{content} </if>
+            <if test="picJson != null">AND un.pic_json = #{picJson} </if>
+            <if test="forwardFlag != null">AND un.forward_flag = #{forwardFlag} </if>
+            <if test="forwardNewsId != null">AND un.forward_news_id = #{forwardNewsId} </if>
+            <if test="userId != null">AND un.user_id = #{userId} </if>
+            <if test="createTime != null">AND un.create_time = #{createTime} </if>
+            <if test="deleteFlag != null">AND un.delete_flag = #{deleteFlag} </if>
+        </trim>
+    </select>
+    <select id="count" parameterType="com.mjapp.model.UserNewsTb" resultType="java.lang.Integer">
+        select count(*) from `user_news_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="content != null">AND `content` = #{content}</if>
+            <if test="picJson != null">AND `pic_json` = #{picJson}</if>
+            <if test="forwardFlag != null">AND `forward_flag` = #{forwardFlag}</if>
+            <if test="forwardNewsId != null">AND `forward_news_id` = #{forwardNewsId}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+        </trim>
+    </select>
+    <select id="getByIncludeUserView" parameterType="com.mjapp.model.UserNewsTb" resultMap="userNewsTbResultMap">
+        select * from `user_news_tb` un INNER JOIN `user_tb` u ON un.user_id = u.id
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND un.id = #{id} </if>
+            <if test="content != null">AND un.content = #{content} </if>
+            <if test="picJson != null">AND un.pic_json = #{picJson} </if>
+            <if test="forwardFlag != null">AND un.forward_flag = #{forwardFlag} </if>
+            <if test="forwardNewsId != null">AND un.forward_news_id = #{forwardNewsId} </if>
+            <if test="userId != null">AND un.user_id = #{userId} </if>
+            <if test="createTime != null">AND un.create_time = #{createTime} </if>
+            <if test="deleteFlag != null">AND un.delete_flag = #{deleteFlag} </if>
+        </trim>
+        <trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+            <if test="sequence1 != null">un.${sequence1} ${sequence1Type},</if>
+            <if test="sequence2 != null">un.${sequence2} ${sequence2Type}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+
+    <select id="getNewsUserViewConditionBy" parameterType="com.mjapp.model.UserNewsTb" resultMap="com.mjapp.dao.UserTbMapper.userViewResultMap">
+        select u.*, un.create_time as relevanceCreateTime from user_news_tb un INNER JOIN user_tb u ON un.user_id = u.id
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND un.id = #{id}</if>
+            <if test="content != null">AND un.content = #{content}</if>
+            <if test="picJson != null">AND un.pic_json = #{picJson}</if>
+            <if test="forwardFlag != null">AND un.forward_flag = #{forwardFlag}</if>
+            <if test="forwardNewsId != null">AND un.forward_news_id = #{forwardNewsId}</if>
+            <if test="userId != null">AND un.user_id = #{userId}</if>
+            <if test="createTime != null">AND un.create_time = #{createTime}</if>
+            <if test="deleteFlag != null">AND un.delete_flag = #{deleteFlag}</if>
+            <if test="maxParameter != null">AND un.${maxParameter} &lt;= #{maxValue}</if>
+            <if test="minParameter != null">AND un.${minParameter} &gt; #{minValue}</if>
+        </trim>
+        <trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+            <if test="sequence1 != null"> un.${sequence1} ${sequence1Type},</if>
+            <if test="sequence2 != null"> un.${sequence2} ${sequence2Type}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+
+
+
+
+
+</mapper>

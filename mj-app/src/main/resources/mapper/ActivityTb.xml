@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjapp.dao.ActivityTbMapper">
+
+    <resultMap id="activityTbResultMap" type="com.mjapp.model.ActivityTb">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="place" property="place"/>
+        <result column="detail" property="detail"/>
+        <result column="create_user_id" property="createUserId"/>
+        <result column="time" property="time"/>
+        <result column="store_json" property="storeJson"/>
+        <result column="head_pic" property="headPic"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="status" property="status"/>
+        <result column="qrcode" property="qrcode"/>
+        <result column="create_time" property="createTime"/>
+        <result column="deadline" property="deadline"/>
+        <result column="people_num" property="peopleNum"/>
+        <association property="userView" javaType="com.mjapp.model.view.UserView"
+                     resultMap="com.mjapp.dao.UserTbMapper.userViewResultMap"/>
+    </resultMap>
+    <sql id="query_where">
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND a.id = #{id}</if>
+            <if test="name != null">AND a.name = #{name}</if>
+            <if test="place != null">AND a.place = #{place}</if>
+            <if test="detail != null">AND a.detail = #{detail}</if>
+            <if test="createUserId != null">AND a.create_user_id = #{createUserId}</if>
+            <if test="time != null">AND a.time = #{time}</if>
+            <if test="storeJson != null">AND a.store_json = #{storeJson}</if>
+            <if test="headPic != null">AND a.head_pic = #{headPic}</if>
+            <if test="deleteFlag != null">AND a.delete_flag = #{deleteFlag}</if>
+            <if test="status != null">AND a.status = #{status}</if>
+            <if test="qrcode != null">AND a.qrcode = #{qrcode}</if>
+            <if test="createTime != null">AND a.create_time = #{createTime}</if>
+            <if test="deadline != null">AND a.deadline = #{deadline}</if>
+            <if test="peopleNum != null">AND a.people_num = #{peopleNum}</if>
+            <if test="maxParameter != null">AND a.${maxParameter} &lt;= #{maxValue}</if>
+            <if test="minParameter != null">AND a.${minParameter} &gt; #{minValue}</if>
+        </trim>
+    </sql>
+    <insert id="save" parameterType="com.mjapp.model.ActivityTb" useGeneratedKeys="true" keyProperty="id">
+        insert into `activity_tb`(
+        <trim suffixOverrides=",">
+            <if test="name != null">`name`,</if>
+            <if test="place != null">`place`,</if>
+            <if test="detail != null">`detail`,</if>
+            <if test="createUserId != null">`create_user_id`,</if>
+            <if test="time != null">`time`,</if>
+            <if test="storeJson != null">`store_json`,</if>
+            <if test="headPic != null">`head_pic`,</if>
+            <if test="deleteFlag != null">`delete_flag`,</if>
+            <if test="status != null">`status`,</if>
+            <if test="qrcode != null">`qrcode`,</if>
+            <if test="createTime != null">`create_time`,</if>
+            <if test="deadline != null">`deadline`,</if>
+            <if test="peopleNum != null">`people_num`,</if>
+        </trim>
+        )values(
+        <trim suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="place != null">#{place},</if>
+            <if test="detail != null">#{detail},</if>
+            <if test="createUserId != null">#{createUserId},</if>
+            <if test="time != null">#{time},</if>
+            <if test="storeJson != null">#{storeJson},</if>
+            <if test="headPic != null">#{headPic},</if>
+            <if test="deleteFlag != null">#{deleteFlag},</if>
+            <if test="status != null">#{status},</if>
+            <if test="qrcode != null">#{qrcode},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="deadline != null">#{deadline},</if>
+            <if test="peopleNum != null">#{peopleNum},</if>
+        </trim>
+        )
+    </insert>
+    <update id="update" parameterType="com.mjapp.model.ActivityTb">
+        update `activity_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null">`name` = #{name},</if>
+            <if test="place != null">`place` = #{place},</if>
+            <if test="detail != null">`detail` = #{detail},</if>
+            <if test="createUserId != null">`create_user_id` = #{createUserId},</if>
+            <if test="time != null">`time` = #{time},</if>
+            <if test="storeJson != null">`store_json` = #{storeJson},</if>
+            <if test="headPic != null">`head_pic` = #{headPic},</if>
+            <if test="deleteFlag != null">`delete_flag` = #{deleteFlag},</if>
+            <if test="status != null">`status` = #{status},</if>
+            <if test="qrcode != null">`qrcode` = #{qrcode},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="deadline != null">`deadline` = #{deadline},</if>
+            <if test="peopleNum != null">`people_num` = #{peopleNum},</if>
+        </trim>
+        where `id` = #{id}
+    </update>
+    <select id="getBy" parameterType="com.mjapp.model.ActivityTb" resultMap="activityTbResultMap">
+        select * from `activity_tb` a INNER JOIN `user_tb` u ON a.create_user_id = u.id
+        <include refid="query_where"/>
+    </select>
+    <select id="getConditionBy" parameterType="com.mjapp.model.ActivityTb" resultMap="activityTbResultMap">
+        select * from `activity_tb` a INNER JOIN `user_tb` u ON a.create_user_id = u.id
+        <include refid="query_where"/>
+        <trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+            <if test="sequence1 != null">a.${sequence1} ${sequence1Type},</if>
+            <if test="sequence2 != null">a.${sequence2} ${sequence2Type}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+    <select id="getUniqueBy" parameterType="com.mjapp.model.ActivityTb" resultMap="activityTbResultMap">
+        select * from `activity_tb` a INNER JOIN `user_tb` u ON a.create_user_id = u.id
+        <include refid="query_where"/>
+    </select>
+    <select id="count" parameterType="com.mjapp.model.ActivityTb" resultType="java.lang.Integer">
+        select count(*) from `activity_tb` a
+        <include refid="query_where"/>
+    </select>
+
+    <select id="getJoinActivityBy" parameterType="com.mjapp.model.ActivityGroupTb" resultMap="activityTbResultMap">
+        select a.* from `activity_group_tb` ag INNER JOIN `activity_tb` a ON ag.activity_id = a.id
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="joinUserId != null">AND `join_user_id` = #{joinUserId}</if>
+            <if test="createUserId != null">AND `create_user_id` = #{createUserId}</if>
+            <if test="activityId != null">AND `activity_id` = #{activityId}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+        </trim>
+    </select>
+
+    <select id="getCollectActivityBy" parameterType="com.mjapp.model.CollectTb" resultMap="activityTbResultMap">
+        select * from `collect_tb` c INNER JOIN `activity_tb` a ON c.collect_activity_id = a.id
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND c.id = #{id}</if>
+            <if test="collectUserId != null">AND c.collect_user_id = #{collectUserId}</if>
+            <if test="collectActivityId != null">AND c.collect_activity_id = #{collectActivityId}</if>
+            <if test="deleteFlag != null">AND c.delete_flag = #{deleteFlag}</if>
+            <if test="createTime != null">AND c.create_time = #{createTime}</if>
+            <if test="updateTime != null">AND c.update_time = #{updateTime}</if>
+        </trim>
+    </select>
+
+</mapper>

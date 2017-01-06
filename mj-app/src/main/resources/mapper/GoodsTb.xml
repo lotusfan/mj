@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjapp.dao.GoodsTbMapper">
+
+<resultMap id="goodsTbResultMap" type="com.mjapp.model.GoodsTb">
+	<id column="id" property="id"/>
+	<result column="store_id" property="storeId" />
+	<result column="commission" property="commission" />
+	<result column="minimumcharge" property="minimumcharge" />
+	<result column="create_time" property="createTime" />
+	<result column="update_time" property="updateTime" /> 
+</resultMap> 
+<insert id="save" parameterType="com.mjapp.model.GoodsTb" useGeneratedKeys="true" keyProperty="id">
+	insert into `goods_tb`(
+	<trim suffixOverrides=",">
+		<if test="storeId != null">`store_id`,</if>
+		<if test="commission != null">`commission`,</if>
+		<if test="minimumcharge != null">`minimumcharge`,</if>
+		<if test="createTime != null">`create_time`,</if>
+		<if test="updateTime != null">`update_time`,</if>
+	</trim>
+	)values(
+	<trim suffixOverrides=",">
+		<if test="storeId != null"> #{storeId},</if>
+		<if test="commission != null"> #{commission},</if>
+		<if test="minimumcharge != null"> #{minimumcharge},</if>
+		<if test="createTime != null"> #{createTime},</if>
+		<if test="updateTime != null"> #{updateTime},</if>
+	</trim>
+	)
+</insert>
+<update id="update" parameterType="com.mjapp.model.GoodsTb">
+	update `goods_tb`
+	<trim prefix="set" suffixOverrides=",">
+		<if test="storeId != null">`store_id` = #{storeId},</if>
+		<if test="commission != null">`commission` = #{commission},</if>
+		<if test="minimumcharge != null">`minimumcharge` = #{minimumcharge},</if>
+		<if test="createTime != null">`create_time` = #{createTime},</if>
+		<if test="updateTime != null">`update_time` = #{updateTime},</if>
+	</trim>
+	where `id` = #{id}
+</update>
+<select id="getBy" parameterType="com.mjapp.model.GoodsTb" resultMap="goodsTbResultMap">
+	select * from `goods_tb`
+	<trim prefix="where" prefixOverrides="AND|OR">
+		<if test="id != null">AND `id` = #{id} </if>
+		<if test="storeId != null">AND `store_id` = #{storeId} </if>
+		<if test="commission != null">AND `commission` = #{commission} </if>
+		<if test="minimumcharge != null">AND `minimumcharge` = #{minimumcharge} </if>
+		<if test="createTime != null">AND `create_time` = #{createTime} </if>
+		<if test="updateTime != null">AND `update_time` = #{updateTime} </if>
+	</trim>
+</select>
+<select id="getConditionBy" parameterType="com.mjapp.model.GoodsTb" resultMap="goodsTbResultMap">
+	select * from `goods_tb`
+	<trim prefix="where" prefixOverrides="AND|OR">
+		<if test="id != null">AND `id` = #{id} </if>
+		<if test="storeId != null">AND `store_id` = #{storeId} </if>
+		<if test="commission != null">AND `commission` = #{commission} </if>
+		<if test="minimumcharge != null">AND `minimumcharge` = #{minimumcharge} </if>
+		<if test="createTime != null">AND `create_time` = #{createTime} </if>
+		<if test="updateTime != null">AND `update_time` = #{updateTime} </if> 
+		<if test="maxParameter != null">AND ${maxParameter} &lt;= #{maxValue}</if>
+		<if test="minParameter != null"> AND ${minParameter} &gt; #{minValue}</if>
+	</trim>
+	<trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+		<if test="sequence1 != null">${sequence1} ${sequence1Type},</if>
+		<if test="sequence2 != null">${sequence2} ${sequence2Type}</if>
+	</trim>
+	<trim prefix="LIMIT">
+		<if test="skipNum != null and pageNum != null"> ${skipNum},${pageNum}</if>
+	</trim>
+</select>
+<select id="getUniqueBy" parameterType="com.mjapp.model.GoodsTb" resultMap="goodsTbResultMap">
+	select * from `goods_tb`
+	<trim prefix="where" prefixOverrides="AND|OR">
+		<if test="id != null">AND `id` = #{id} </if>
+		<if test="storeId != null">AND `store_id` = #{storeId} </if>
+		<if test="commission != null">AND `commission` = #{commission} </if>
+		<if test="minimumcharge != null">AND `minimumcharge` = #{minimumcharge} </if>
+		<if test="createTime != null">AND `create_time` = #{createTime} </if>
+		<if test="updateTime != null">AND `update_time` = #{updateTime} </if>
+	</trim>
+</select>
+<select id="count" parameterType="com.mjapp.model.GoodsTb" resultType="java.lang.Integer">
+	select count(*) from `goods_tb`
+	<trim prefix="where" prefixOverrides="AND|OR">
+		<if test="storeId != null">AND `store_id` = #{storeId} </if>
+		<if test="commission != null">AND `commission` = #{commission} </if>
+		<if test="minimumcharge != null">AND `minimumcharge` = #{minimumcharge} </if>
+		<if test="createTime != null">AND `create_time` = #{createTime} </if>
+		<if test="updateTime != null">AND `update_time` = #{updateTime} </if>
+	</trim>
+</select>
+</mapper>

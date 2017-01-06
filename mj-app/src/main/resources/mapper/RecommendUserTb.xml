@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjapp.dao.RecommendUserTbMapper">
+
+    <resultMap id="recommendUserTbResultMap" type="com.mjapp.model.RecommendUserTb">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="delete_flag" property="deleteFlag"/>
+        <result column="create_time" property="createTime"/>
+        <result column="sort" property="sort"/>
+    </resultMap>
+    <insert id="save" parameterType="com.mjapp.model.RecommendUserTb" useGeneratedKeys="true" keyProperty="id">
+        insert into `recommend_user_tb`(
+        <trim suffixOverrides=",">
+            <if test="userId != null">`user_id`,</if>
+            <if test="deleteFlag != null">`delete_flag`,</if>
+            <if test="createTime != null">`create_time`,</if>
+            <if test="sort != null">`sort`,</if>
+        </trim>
+        )values(
+        <trim suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="deleteFlag != null">#{deleteFlag},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="sort != null">#{sort},</if>
+        </trim>
+        )
+    </insert>
+    <update id="update" parameterType="com.mjapp.model.RecommendUserTb">
+        update `recommend_user_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="userId != null">`user_id` = #{userId},</if>
+            <if test="deleteFlag != null">`delete_flag` = #{deleteFlag},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="sort != null">`sort` = #{sort},</if>
+        </trim>
+        where `id` = #{id}
+    </update>
+    <select id="getBy" parameterType="com.mjapp.model.RecommendUserTb" resultMap="recommendUserTbResultMap">
+        select * from `recommend_user_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="sort != null">AND `sort` = #{sort}</if>
+        </trim>
+    </select>
+    <select id="getConditionBy" parameterType="com.mjapp.model.RecommendUserTb" resultMap="recommendUserTbResultMap">
+        select * from `recommend_user_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="sort != null">AND `sort` = #{sort}</if>
+            <if test="maxParameter != null">AND ${maxParameter} &lt;= #{maxValue}</if>
+            <if test="minParameter != null">AND ${minParameter} &gt; #{minValue}</if>
+        </trim>
+        <trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+            <if test="sequence1 != null">${sequence1} ${sequence1Type},</if>
+            <if test="sequence2 != null">${sequence2} ${sequence2Type}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+    <select id="getUniqueBy" parameterType="com.mjapp.model.RecommendUserTb" resultMap="recommendUserTbResultMap">
+        select * from `recommend_user_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="sort != null">AND `sort` = #{sort}</if>
+        </trim>
+    </select>
+    <select id="count" parameterType="com.mjapp.model.RecommendUserTb" resultType="java.lang.Integer">
+        select count(*) from `recommend_user_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="userId != null">AND `user_id` = #{userId}</if>
+            <if test="deleteFlag != null">AND `delete_flag` = #{deleteFlag}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="sort != null">AND `sort` = #{sort}</if>
+        </trim>
+    </select>
+    <select id="getUserViewBy" parameterType="com.mjapp.model.RecommendUserTb" resultMap="com.mjapp.dao.UserTbMapper.userViewResultMap">
+        select u.* from `recommend_user_tb` ru INNER JOIN `user_tb` u ON ru.user_id = u.id
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND ru.id = #{id}</if>
+            <if test="userId != null">AND ru.user_id = #{userId}</if>
+            <if test="deleteFlag != null">AND ru.delete_flag = #{deleteFlag}</if>
+            <if test="createTime != null">AND ru.create_time = #{createTime}</if>
+            <if test="sort != null">AND ru.sort = #{sort}</if>
+        </trim>
+        ORDER BY ru.sort ASC
+    </select>
+</mapper>

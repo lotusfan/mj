@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mjapp.dao.UserTbMapper">
+
+    <resultMap id="userTbResultMap" type="com.mjapp.model.UserTb">
+        <id column="id" property="id"/>
+        <result column="login_name" property="loginName"/>
+        <result column="password" property="password"/>
+        <result column="real_name" property="realName"/>
+        <result column="card_num" property="cardNum"/>
+        <result column="signature" property="signature"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="city" property="city"/>
+        <result column="school" property="school"/>
+        <result column="job" property="job"/>
+        <result column="job_trade" property="jobTrade"/>
+        <result column="head_pic" property="headPic"/>
+        <result column="background_pic" property="backgroundPic"/>
+        <result column="authentication" property="authentication"/>
+        <result column="mj_code" property="mjCode"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <resultMap id="userViewResultMap" type="com.mjapp.model.view.UserView">
+        <id column="id" property="id"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="head_pic" property="headPic"/>
+        <result column="authentication" property="authentication"/>
+        <result column="mj_code" property="mjCode"/>
+        <result column="background_pic" property="backgroundPic"/>
+    </resultMap>
+    <insert id="save" parameterType="com.mjapp.model.UserTb" useGeneratedKeys="true" keyProperty="id">
+        insert into `user_tb`(
+        <trim suffixOverrides=",">
+            <if test="loginName != null">`login_name`,</if>
+            <if test="password != null">`password`,</if>
+            <if test="realName != null">`real_name`,</if>
+            <if test="cardNum != null">`card_num`,</if>
+            <if test="signature != null">`signature`,</if>
+            <if test="nickName != null">`nick_name`,</if>
+            <if test="sex != null">`sex`,</if>
+            <if test="age != null">`age`,</if>
+            <if test="city != null">`city`,</if>
+            <if test="school != null">`school`,</if>
+            <if test="job != null">`job`,</if>
+            <if test="jobTrade != null">`job_trade`,</if>
+            <if test="headPic != null">`head_pic`,</if>
+            <if test="backgroundPic != null">`background_pic`,</if>
+            <if test="authentication != null">`authentication`,</if>
+            <if test="mjCode != null">`mj_code`,</if>
+            <if test="createTime != null">`create_time`,</if>
+            <if test="updateTime != null">`update_time`,</if>
+        </trim>
+        )values(
+        <trim suffixOverrides=",">
+            <if test="loginName != null">#{loginName},</if>
+            <if test="password != null">#{password},</if>
+            <if test="realName != null">#{realName},</if>
+            <if test="cardNum != null">#{cardNum},</if>
+            <if test="signature != null">#{signature},</if>
+            <if test="nickName != null">#{nickName},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="age != null">#{age},</if>
+            <if test="city != null">#{city},</if>
+            <if test="school != null">#{school},</if>
+            <if test="job != null">#{job},</if>
+            <if test="jobTrade != null">#{jobTrade},</if>
+            <if test="headPic != null">#{headPic},</if>
+            <if test="backgroundPic != null">#{backgroundPic},</if>
+            <if test="authentication != null">#{authentication},</if>
+            <if test="mjCode != null">#{mjCode},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+        )
+    </insert>
+    <update id="update" parameterType="com.mjapp.model.UserTb">
+        update `user_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="loginName != null">`login_name` = #{loginName},</if>
+            <if test="password != null">`password` = #{password},</if>
+            <if test="realName != null">`real_name` = #{realName},</if>
+            <if test="cardNum != null">`card_num` = #{cardNum},</if>
+            <if test="signature != null">`signature` = #{signature},</if>
+            <if test="nickName != null">`nick_name` = #{nickName},</if>
+            <if test="sex != null">`sex` = #{sex},</if>
+            <if test="age != null">`age` = #{age},</if>
+            <if test="city != null">`city` = #{city},</if>
+            <if test="school != null">`school` = #{school},</if>
+            <if test="job != null">`job` = #{job},</if>
+            <if test="jobTrade != null">`job_trade` = #{jobTrade},</if>
+            <if test="headPic != null">`head_pic` = #{headPic},</if>
+            <if test="backgroundPic != null">`background_pic` = #{backgroundPic},</if>
+            <if test="authentication != null">`authentication` = #{authentication},</if>
+            <if test="mjCode != null">`mj_code` = #{mjCode},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="updateTime != null">`update_time` = #{updateTime},</if>
+        </trim>
+        where `id` = #{id}
+    </update>
+    <update id="updateByLoginName" parameterType="com.mjapp.model.UserTb">
+        update `user_tb`
+        <trim prefix="set" suffixOverrides=",">
+            <if test="password != null">`password` = #{password},</if>
+            <if test="realName != null">`real_name` = #{realName},</if>
+            <if test="cardNum != null">`card_num` = #{cardNum},</if>
+            <if test="signature != null">`signature` = #{signature},</if>
+            <if test="nickName != null">`nick_name` = #{nickName},</if>
+            <if test="sex != null">`sex` = #{sex},</if>
+            <if test="age != null">`age` = #{age},</if>
+            <if test="city != null">`city` = #{city},</if>
+            <if test="school != null">`school` = #{school},</if>
+            <if test="job != null">`job` = #{job},</if>
+            <if test="jobTrade != null">`job_trade` = #{jobTrade},</if>
+            <if test="headPic != null">`head_pic` = #{headPic},</if>
+            <if test="backgroundPic != null">`background_pic` = #{backgroundPic},</if>
+            <if test="authentication != null">`authentication` = #{authentication},</if>
+            <if test="mjCode != null">`mj_code` = #{mjCode},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="updateTime != null">`update_time` = #{updateTime},</if>
+        </trim>
+        where `login_name` = #{loginName}
+    </update>
+    <select id="getBy" parameterType="com.mjapp.model.UserTb" resultMap="userTbResultMap">
+        select * from `user_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="loginName != null">AND `login_name` = #{loginName}</if>
+            <if test="password != null">AND `password` = #{password}</if>
+            <if test="realName != null">AND `real_name` = #{realName}</if>
+            <if test="cardNum != null">AND `card_num` = #{cardNum}</if>
+            <if test="signature != null">AND `signature` = #{signature}</if>
+            <if test="nickName != null">AND `nick_name` = #{nickName}</if>
+            <if test="sex != null">AND `sex` = #{sex}</if>
+            <if test="age != null">AND `age` = #{age}</if>
+            <if test="city != null">AND `city` = #{city}</if>
+            <if test="school != null">AND `school` = #{school}</if>
+            <if test="job != null">AND `job` = #{job}</if>
+            <if test="jobTrade != null">AND `job_trade` = #{jobTrade}</if>
+            <if test="headPic != null">AND `head_pic` = #{headPic}</if>
+            <if test="backgroundPic != null">AND `background_pic` = #{backgroundPic}</if>
+            <if test="authentication != null">AND `authentication` = #{authentication}</if>
+            <if test="mjCode != null">AND `mj_code` = #{mjCode}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+        </trim>
+    </select>
+    <select id="getConditionBy" parameterType="com.mjapp.model.UserTb" resultMap="userTbResultMap">
+        select * from `user_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="loginName != null">AND `login_name` = #{loginName}</if>
+            <if test="password != null">AND `password` = #{password}</if>
+            <if test="realName != null">AND `real_name` = #{realName}</if>
+            <if test="cardNum != null">AND `card_num` = #{cardNum}</if>
+            <if test="signature != null">AND `signature` = #{signature}</if>
+            <if test="nickName != null">AND `nick_name` = #{nickName}</if>
+            <if test="sex != null">AND `sex` = #{sex}</if>
+            <if test="age != null">AND `age` = #{age}</if>
+            <if test="city != null">AND `city` = #{city}</if>
+            <if test="school != null">AND `school` = #{school}</if>
+            <if test="job != null">AND `job` = #{job}</if>
+            <if test="jobTrade != null">AND `job_trade` = #{jobTrade}</if>
+            <if test="headPic != null">AND `head_pic` = #{headPic}</if>
+            <if test="backgroundPic != null">AND `background_pic` = #{backgroundPic}</if>
+            <if test="authentication != null">AND `authentication` = #{authentication}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+            <if test="mjCode != null">AND `mj_code` = #{mjCode}</if>
+            <if test="maxParameter != null">AND ${maxParameter} &lt;= #{maxValue}</if>
+            <if test="minParameter != null">AND ${minParameter} &gt; #{minValue}</if>
+        </trim>
+        <trim prefix="ORDER BY" prefixOverrides="," suffixOverrides=",">
+            <if test="sequence1 != null">${sequence1} ${sequence1Type},</if>
+            <if test="sequence2 != null">${sequence2} ${sequence2Type}</if>
+        </trim>
+        <trim prefix="LIMIT">
+            <if test="skipNum != null and pageNum != null">${skipNum},${pageNum}</if>
+        </trim>
+    </select>
+    <select id="getUniqueBy" parameterType="com.mjapp.model.UserTb" resultMap="userTbResultMap">
+        select * from `user_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="loginName != null">AND `login_name` = #{loginName}</if>
+            <if test="password != null">AND `password` = #{password}</if>
+            <if test="realName != null">AND `real_name` = #{realName}</if>
+            <if test="cardNum != null">AND `card_num` = #{cardNum}</if>
+            <if test="signature != null">AND `signature` = #{signature}</if>
+            <if test="nickName != null">AND `nick_name` = #{nickName}</if>
+            <if test="sex != null">AND `sex` = #{sex}</if>
+            <if test="age != null">AND `age` = #{age}</if>
+            <if test="city != null">AND `city` = #{city}</if>
+            <if test="school != null">AND `school` = #{school}</if>
+            <if test="job != null">AND `job` = #{job}</if>
+            <if test="jobTrade != null">AND `job_trade` = #{jobTrade}</if>
+            <if test="headPic != null">AND `head_pic` = #{headPic}</if>
+            <if test="backgroundPic != null">AND `background_pic` = #{backgroundPic}</if>
+            <if test="authentication != null">AND `authentication` = #{authentication}</if>
+            <if test="mjCode != null">AND `mj_code` = #{mjCode}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+        </trim>
+    </select>
+    <select id="count" parameterType="com.mjapp.model.UserTb" resultType="java.lang.Integer">
+        select count(*) from `user_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="loginName != null">AND `login_name` = #{loginName}</if>
+            <if test="password != null">AND `password` = #{password}</if>
+            <if test="realName != null">AND `real_name` = #{realName}</if>
+            <if test="cardNum != null">AND `card_num` = #{cardNum}</if>
+            <if test="signature != null">AND `signature` = #{signature}</if>
+            <if test="nickName != null">AND `nick_name` = #{nickName}</if>
+            <if test="sex != null">AND `sex` = #{sex}</if>
+            <if test="age != null">AND `age` = #{age}</if>
+            <if test="city != null">AND `city` = #{city}</if>
+            <if test="school != null">AND `school` = #{school}</if>
+            <if test="job != null">AND `job` = #{job}</if>
+            <if test="jobTrade != null">AND `job_trade` = #{jobTrade}</if>
+            <if test="headPic != null">AND `head_pic` = #{headPic}</if>
+            <if test="backgroundPic != null">AND `background_pic` = #{backgroundPic}</if>
+            <if test="authentication != null">AND `authentication` = #{authentication}</if>
+            <if test="mjCode != null">AND `mj_code` = #{mjCode}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+        </trim>
+    </select>
+    <select id="getUniqueByUserView" parameterType="com.mjapp.model.UserTb" resultMap="userViewResultMap">
+        select * from `user_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="loginName != null">AND `login_name` = #{loginName}</if>
+            <if test="password != null">AND `password` = #{password}</if>
+            <if test="realName != null">AND `real_name` = #{realName}</if>
+            <if test="cardNum != null">AND `card_num` = #{cardNum}</if>
+            <if test="signature != null">AND `signature` = #{signature}</if>
+            <if test="nickName != null">AND `nick_name` = #{nickName}</if>
+            <if test="sex != null">AND `sex` = #{sex}</if>
+            <if test="age != null">AND `age` = #{age}</if>
+            <if test="city != null">AND `city` = #{city}</if>
+            <if test="school != null">AND `school` = #{school}</if>
+            <if test="job != null">AND `job` = #{job}</if>
+            <if test="jobTrade != null">AND `job_trade` = #{jobTrade}</if>
+            <if test="headPic != null">AND `head_pic` = #{headPic}</if>
+            <if test="backgroundPic != null">AND `background_pic` = #{backgroundPic}</if>
+            <if test="authentication != null">AND `authentication` = #{authentication}</if>
+            <if test="mjCode != null">AND `mj_code` = #{mjCode}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+        </trim>
+    </select>
+    <select id="getByUserView" parameterType="com.mjapp.model.UserTb" resultMap="userViewResultMap">
+        select * from `user_tb`
+        <trim prefix="where" prefixOverrides="AND|OR">
+            <if test="id != null">AND `id` = #{id}</if>
+            <if test="loginName != null">AND `login_name` = #{loginName}</if>
+            <if test="password != null">AND `password` = #{password}</if>
+            <if test="realName != null">AND `real_name` = #{realName}</if>
+            <if test="cardNum != null">AND `card_num` = #{cardNum}</if>
+            <if test="signature != null">AND `signature` = #{signature}</if>
+            <if test="nickName != null">AND `nick_name` = #{nickName}</if>
+            <if test="sex != null">AND `sex` = #{sex}</if>
+            <if test="age != null">AND `age` = #{age}</if>
+            <if test="city != null">AND `city` = #{city}</if>
+            <if test="school != null">AND `school` = #{school}</if>
+            <if test="job != null">AND `job` = #{job}</if>
+            <if test="jobTrade != null">AND `job_trade` = #{jobTrade}</if>
+            <if test="headPic != null">AND `head_pic` = #{headPic}</if>
+            <if test="backgroundPic != null">AND `background_pic` = #{backgroundPic}</if>
+            <if test="authentication != null">AND `authentication` = #{authentication}</if>
+            <if test="mjCode != null">AND `mj_code` = #{mjCode}</if>
+            <if test="createTime != null">AND `create_time` = #{createTime}</if>
+            <if test="updateTime != null">AND `update_time` = #{updateTime}</if>
+        </trim>
+    </select>
+</mapper>
